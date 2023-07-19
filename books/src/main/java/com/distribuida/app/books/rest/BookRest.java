@@ -87,7 +87,7 @@ public class BookRest {
     @POST
     public Response create(Book p) {
         rep.persist(p);
-
+        //p.getAuthor_id()!=null
         return Response.status(Response.Status.CREATED.getStatusCode(), "book created").build();
     }
 
