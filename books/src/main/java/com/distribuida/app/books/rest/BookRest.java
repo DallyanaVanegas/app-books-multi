@@ -68,6 +68,17 @@ public class BookRest {
         Book obj = book.get();
         AuthorDto authorDto = clientAuthors.getById(obj.getAuthor_id());
 
+        //Proxy Manual
+//        var config = ConfigProvider.getConfig();
+//        String.format("http://%s:%s",
+//                config.getValue("app.authors.host", String.class),
+//                config.getValue("app.authors.port", String.class)
+//        );
+//        RestClientBuilder.newBuilder()
+//                .baseUri(URI.create("http://127.0.0.1:9090"))
+//                .connectTimeout(400, TimeUnit.MILLISECONDS)
+//                .build(AuthorRestClient.class);
+
         /*BookDto dto = new BookDto();
         dto.setId(obj.getId());
         dto.setIsbn(obj.getIsbn());

@@ -10,7 +10,8 @@ import java.util.List;
 @Path("/authors")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@RegisterRestClient(baseUri = "http://localhost:9090")
+@RegisterRestClient(configKey = "authorRestClient")
+//@RegisterRestClient(baseUri = "http://localhost:9090")
 public interface AuthorRestClient {
 //los mismos metodos de author rest
     @GET
