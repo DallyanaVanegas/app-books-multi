@@ -97,23 +97,35 @@ public class BookRest {
 
     @POST
     public Response create(Book p) {
-        rep.persist(p);
-        //p.getAuthor_id()!=null
-        return Response.status(Response.Status.CREATED.getStatusCode(), "book created").build();
+
+        var author = clientAuthors.getById(p.getAuthor_id());
+
+        if(author!=null){
+            rep.persist(p);return Response.status(Response.Status.CREATED.getStatusCode(), "book created").build();
+        }else{
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
     }
 
     @PUT
     @Path("/{id}")
     public Response update(@PathParam("id") Integer id, Book bookObj) {
-        Book book = rep.findById(id);
 
-        book.setIsbn(bookObj.getIsbn());
-        book.setPrice(bookObj.getPrice());
-        book.setTitle(bookObj.getTitle());
+        var author = clientAuthors.getById(bookObj.getAuthor_id());
 
+        if(author!=null){
+            Book book = rep.findById(id);
+
+            book.setIsbn(bookObj.getIsbn());
+            book.setPrice(bookObj.getPrice());
+            book.setTitle(bookObj.getTitle());
+            book.setAuthor_id(bookObj.getAuthor_id());
+            return Response.ok().build();
+
+        }else{
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
         //rep.persistAndFlush(book);
-
-        return Response.ok().build();
     }
 
     @DELETE
