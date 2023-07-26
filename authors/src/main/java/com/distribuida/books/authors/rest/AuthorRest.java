@@ -47,8 +47,8 @@ public class AuthorRest {
     @Path("/{id}")
     public Response update(@PathParam("id") Integer id, Author authorObj) {
         Author author = rep.findById(id);
-        author.setFirst_name(authorObj.getFirst_name());
-        author.setLast_name(authorObj.getLast_name());
+        author.setFirstName(authorObj.getFirstName());
+        author.setLastName(authorObj.getLastName());
 
         //rep.persistAndFlush(author);
 

@@ -18,29 +18,10 @@ public class Book {
     @Column
     private Double price;
 
-    @Column
-    private int author_id;
+    @Column(name="author_id")
+    private int authorId;
 
-    public int getAuthor_id() {
-        return author_id;
-    }
-
-    public void setAuthor_id(int author_id) {
-        this.author_id = author_id;
-    }
-
-    public Book(){}
-
-    public Book(String name){
-        this.isbn = name;
-    }
-
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
+    public Book() {
     }
 
     public Integer getId() {
@@ -49,6 +30,14 @@ public class Book {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 
     public String getTitle() {
@@ -67,6 +56,14 @@ public class Book {
         this.price = price;
     }
 
+    public int getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(int authorId) {
+        this.authorId = authorId;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
@@ -74,6 +71,8 @@ public class Book {
                 ", isbn='" + isbn + '\'' +
                 ", title='" + title + '\'' +
                 ", price=" + price +
+                ", authorId=" + authorId +
                 '}';
     }
+
 }

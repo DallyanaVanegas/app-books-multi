@@ -1,8 +1,11 @@
 package com.distribuida.app.books.DTO;
 public class AuthorDto {
+
     private Integer id;
-    private String first_name;
-    private String last_name;
+
+    private String firstname;
+
+    private String lastname;
 
     public Integer getId() {
         return id;
@@ -12,19 +15,19 @@ public class AuthorDto {
         this.id = id;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getFirstName() {
+        return firstname;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setFirstName(String first_name) {
+        this.firstname = first_name;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public String getLastName() {
+        return lastname;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setLastName(String last_name) {
+        this.lastname = last_name;
     }
 }

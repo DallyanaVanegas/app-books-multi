@@ -6,8 +6,8 @@ public class BookDto {
     private String isbn;
     private String title;
     private Double price;
-    private int author_id;
-    private String author_name;
+    private int authorId;
+    private String authorName;
 
     public Integer getId() {
         return id;
@@ -41,19 +41,19 @@ public class BookDto {
         this.price = price;
     }
 
-    public int getAuthor_id() {
-        return author_id;
+    public int getAuthorId() {
+        return authorId;
     }
 
-    public void setAuthor_id(int author_id) {
-        this.author_id = author_id;
+    public void setAuthorId(int authorId) {
+        this.authorId = authorId;
     }
 
-    public String getAuthor_name() {
-        return author_name;
+    public String getAuthorName() {
+        return authorName;
     }
 
-    public void setAuthor_name(String author_name) {
-        this.author_name = author_name;
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
     }
 }

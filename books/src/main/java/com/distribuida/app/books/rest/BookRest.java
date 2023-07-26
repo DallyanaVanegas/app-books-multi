@@ -34,7 +34,7 @@ public class BookRest {
         dto.setIsbn(obj.getIsbn());
         dto.setPrice(obj.getPrice());
         dto.setTitle(obj.getTitle());
-        dto.setAuthor_id(obj.getAuthor_id());
+        dto.setAuthorId(obj.getAuthorId());
         return dto;
     }
     @GET
@@ -43,10 +43,10 @@ public class BookRest {
         return rep.streamAll()
                 .map(BookRest::fromBook)
                 .map(dto-> {
-                    AuthorDto authorDto = clientAuthors.getById(dto.getAuthor_id());
+                    AuthorDto authorDto = clientAuthors.getById(dto.getAuthorId());
                     String authorNombreCompleto = String.format("%s, %s",
-                            authorDto.getFirst_name(),authorDto.getLast_name());
-                    dto.setAuthor_name(authorNombreCompleto);
+                            authorDto.getFirstName(),authorDto.getLastName());
+                    dto.setAuthorName(authorNombreCompleto);
 
                     return dto;
                 }
@@ -66,7 +66,7 @@ public class BookRest {
         }
 
         Book obj = book.get();
-        AuthorDto authorDto = clientAuthors.getById(obj.getAuthor_id());
+        AuthorDto authorDto = clientAuthors.getById(obj.getAuthorId());
 
         //Proxy Manual
 //        var config = ConfigProvider.getConfig();
@@ -89,8 +89,8 @@ public class BookRest {
 
         BookDto dto = fromBook(obj);
 
-        String authorNombreCompleto = String.format("%s, %s", authorDto.getFirst_name(),authorDto.getLast_name());
-        dto.setAuthor_name(authorNombreCompleto);
+        String authorNombreCompleto = String.format("%s, %s", authorDto.getFirstName(),authorDto.getLastName());
+        dto.setAuthorName(authorNombreCompleto);
 
         return Response.ok(book.get()).build();
     }
@@ -98,7 +98,7 @@ public class BookRest {
     @POST
     public Response create(Book p) {
 
-        var author = clientAuthors.getById(p.getAuthor_id());
+        var author = clientAuthors.getById(p.getAuthorId());
 
         if(author!=null){
             rep.persist(p);return Response.status(Response.Status.CREATED.getStatusCode(), "book created").build();
@@ -111,7 +111,7 @@ public class BookRest {
     @Path("/{id}")
     public Response update(@PathParam("id") Integer id, Book bookObj) {
 
-        var author = clientAuthors.getById(bookObj.getAuthor_id());
+        var author = clientAuthors.getById(bookObj.getAuthorId());
 
         if(author!=null){
             Book book = rep.findById(id);
@@ -119,7 +119,7 @@ public class BookRest {
             book.setIsbn(bookObj.getIsbn());
             book.setPrice(bookObj.getPrice());
             book.setTitle(bookObj.getTitle());
-            book.setAuthor_id(bookObj.getAuthor_id());
+            book.setAuthorId(bookObj.getAuthorId());
             return Response.ok().build();
 
         }else{
