@@ -7,11 +7,11 @@ services:
       - "8081:80"
       - "8080:8080"
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/run/docker.sock:/var/run/docker.sock
   app-authors-service:
     image: localhost/app-authors:1.0.0
     deploy:
-      replicas: 1
+      replicas: 2
     expose:
       - 9090
     labels:
@@ -26,7 +26,7 @@ services:
       APP_AUTHORS_HOST: app-authors-service
       APP_AUTHORS_PORT: 9090
     deploy:
-      replicas: 1
+      replicas: 2
     expose:
       - 8080
     labels:
