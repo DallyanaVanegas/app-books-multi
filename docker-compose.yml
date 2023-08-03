@@ -9,9 +9,10 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
   app-authors-service:
-    image: localhost/app-authors:1.0.0
+    #image: localhost/app-authors:1.0.0    #imagen local
+    image: dallyana/app-authors:1.0.0  #imagen en la nube
     deploy:
-      replicas: 2
+      replicas: 1
     expose:
       - 9090
     labels:
@@ -21,12 +22,14 @@ services:
     #ports:
       #- "9090:9090"
   app-books-service:
-    image: localhost/app-books:1.0.0
+    #image: localhost/app-books:1.0.0
+    image: dallyana/app-books:1.0.0
     environment:
-      APP_AUTHORS_HOST: app-authors-service
-      APP_AUTHORS_PORT: 9090
+      APP_AUTHORS_URL: http://proxy/app-authors
+      #APP_AUTHORS_HOST: app-authors-service
+      #APP_AUTHORS_PORT: 9090
     deploy:
-      replicas: 2
+      replicas: 1
     expose:
       - 8080
     labels:
@@ -35,3 +38,8 @@ services:
       - "traefik.http.routers.books.middlewares=books"
     #ports:
       #- "8080:8080"
+#    healthcheck:
+#      test: curl --fail http://localhost:8080/1/live || exit 1
+#      interval: 30s
+#      timeout: 10s
+#      retries: 5
