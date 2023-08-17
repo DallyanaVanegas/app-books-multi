@@ -10,6 +10,10 @@ import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.media.Content;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import java.util.List;
@@ -19,6 +23,7 @@ import java.util.stream.Collectors;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Transactional
+@Schema(name = "BookRest API")
 public class BookRest {
 
     @Inject
@@ -38,6 +43,9 @@ public class BookRest {
         return dto;
     }
     @GET
+    @Operation(summary = "Obtener todos los libros")
+    @APIResponse(responseCode = "200", description = "Lista de libros",
+            content = @Content(schema = @Schema(implementation = Book.class)))
     public List<BookDto> findAll() {
 
         return rep.streamAll()
@@ -57,6 +65,10 @@ public class BookRest {
 
     @GET
     @Path("/{id}")
+    @Operation(summary = "Obtener un libro por ID")
+    @APIResponse(responseCode = "200", description = "Libro encontrado",
+            content = @Content(schema = @Schema(implementation = Book.class)))
+    @APIResponse(responseCode = "404", description = "Libro no encontrado")
     public Response getById(@PathParam("id") Integer id) {
         var book = rep.findByIdOptional(id);
 
@@ -96,6 +108,8 @@ public class BookRest {
     }
 
     @POST
+    @Operation(summary = "Crear un nuevo libro")
+    @APIResponse(responseCode = "201", description = "Libro creado")
     public Response create(Book p) {
 
         var author = clientAuthors.getById(p.getAuthorId());
@@ -109,6 +123,9 @@ public class BookRest {
 
     @PUT
     @Path("/{id}")
+    @Operation(summary = "Actualizar un libro por ID")
+    @APIResponse(responseCode = "200", description = "Libro actualizado")
+    @APIResponse(responseCode = "404", description = "Libro no encontrado")
     public Response update(@PathParam("id") Integer id, Book bookObj) {
 
         var author = clientAuthors.getById(bookObj.getAuthorId());
@@ -130,6 +147,8 @@ public class BookRest {
 
     @DELETE
     @Path("/{id}")
+    @Operation(summary = "Eliminar un libro por ID")
+    @APIResponse(responseCode = "200", description = "Libro eliminado")
     public Response delete(@PathParam("id") Integer id) {
         rep.deleteById(id);
 
